@@ -50,7 +50,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription")] Tasks tasks)
+        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus")] Tasks tasks)
         {
             tasks.TaskID = Guid.NewGuid().ToString();
             if (ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TaskID,TaskName,TaskDescription")] Tasks tasks)
+        public ActionResult Edit([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus")] Tasks tasks)
         {
             if (ModelState.IsValid)
             {

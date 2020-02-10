@@ -21,13 +21,13 @@
     </div>
     <div class="row">
         <div class="empty col-sm-4 todoColumn">
-            @foreach (var item in Model)
+            @foreach (var item in Model.Where(m => m.TaskStatus == "TODO"))
             {   
-                <div class="fill" draggable="true" id="@item.TaskID">
+                <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
                     <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
                     <div class="actionLinks">
                         <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-edit"></i>
                         </a>
                         <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
@@ -41,9 +41,43 @@
         </div>
 
         <div class="empty col-sm-4 inprogressColumn">
+            @foreach (var item in Model.Where(m => m.TaskStatus == "INPROGRESS"))
+            {
+                <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
+                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
+                    <div class="actionLinks">
+                        <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-info"></i>
+                        </a>
+                        <a title="Delete task" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
 
         <div class="empty col-sm-4 doneColumn">
+            @foreach (var item in Model.Where(m => m.TaskStatus == "DONE"))
+            {
+                <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
+                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
+                    <div class="actionLinks">
+                        <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-info"></i>
+                        </a>
+                        <a title="Delete task" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 

@@ -16,36 +16,31 @@ for (const empty of empties) {
 // Drag Functions
 
 function dragStart() {
-    console.log("dragStart");
     this.className += ' hold';
     setTimeout(() => (this.className = 'invisible'), 0);
 }
 
 function dragEnd() {
-    console.log("dragEnd");
     this.className = 'fill';
     this.className += ' col-sm-4';
 }
 
 function dragOver(e) {
-    console.log("dragOver");
     e.preventDefault();
 }
 
 function dragEnter(e) {
-    console.log("dragEnter");
     e.preventDefault();
     this.className += ' hovered';
 }
 
 function dragLeave() {
-    console.log("dragLeave");
     this.className = 'empty';
     this.className += ' col-sm-4';
 }
 
 function dragDrop() {
-    console.log("dragDrop");
+    //save status and edited text
     this.className = 'empty';
     this.className += ' col-sm-4';
     this.append(fill);
