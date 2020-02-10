@@ -1,4 +1,23 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-@*testing*@
+@*Check if user is logged ind*@
+@if (@Request.IsAuthenticated)
+{
+    <br />
+    <h1>Welcome back @User.Identity.Name</h1>
+    <br />
+    <hr />
+    <h2>Your projects count: 10</h2>
+    <br />
+    <hr />
+    <h2>Your iterations count: 5</h2>
+    <br />
+    <hr />
+    <h2>Your tasks count: 16</h2>
+    <br />
+    <hr />
+    <h2>Your teams count: 1</h2>
+    <br />
+    <hr />
+}

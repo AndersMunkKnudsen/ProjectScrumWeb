@@ -4,43 +4,91 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <br />
+    <h2 style="text-align:center;">Your Tasks</h2>
+    <hr />
+    <p class="createBtn">
+        @Html.ActionLink("+", "Create")
+    </p>
+    <hr />
 
-<h2>Index</h2>
+    @*-----------------------TASK STATUS BOARD START --------------------------*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskStatus)
-        </th>
-        <th></th>
-    </tr>
+    <div class="row">
+        <h2 class="col-sm-4" style="text-align: center;">TODO</h2>
+        <h2 class="col-sm-4" style="text-align: center;">IN PROGRESS</h2>
+        <h2 class="col-sm-4" style="text-align: center;">DONE</h2>
+    </div>
+    <div class="row">
+        <div class="empty col-sm-4 todoColumn">
+            @foreach (var item in Model)
+            {   
+                <div class="fill" draggable="true" id="@item.TaskID">
+                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
+                    <div class="actionLinks">
+                        <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-info"></i>
+                        </a>
+                        <a title="Delete task" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskStatus)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TaskID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TaskID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TaskID })
-        </td>
-    </tr>
+        <div class="empty col-sm-4 inprogressColumn">
+        </div>
+
+        <div class="empty col-sm-4 doneColumn">
+        </div>
+    </div>
+
+    @*-----------------------TASK STATUS BOARD END --------------------------*@
+
+    <br />
+    <hr />
+    <br />
+
+    @*<table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TaskStatus)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaskName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaskDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaskStatus)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.TaskID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.TaskID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.TaskID })
+                    </td>
+                </tr>
+            }
+        </table>*@
+
+    <br />
+    <br />
 }
-
-</table>
+<script src="~/Scripts/main.js"></script>
