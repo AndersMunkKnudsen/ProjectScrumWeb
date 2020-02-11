@@ -94,6 +94,27 @@ namespace ScrumWeb.Controllers
             return View(tasks);
         }
 
+        [HttpPost] 
+        public JsonResult SaveOnDrop(string TaskID, string TaskName, string TaskDescription, string TaskStatus)
+        {
+            if (TaskID != null)
+            {
+                Tasks incomingTask = new Tasks();
+                incomingTask.TaskID = TaskID;
+                incomingTask.TaskName = TaskName;
+                incomingTask.TaskDescription = TaskDescription;
+                incomingTask.TaskStatus = TaskStatus;
+
+                db.Entry(incomingTask).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json(new { Msg = "Sucess" });
+            }
+            else
+            {
+                return Json(new { Msg = "Error" });
+            }           
+        }
+
         // GET: Tasks/Delete/5
         public ActionResult Delete(string id)
         {

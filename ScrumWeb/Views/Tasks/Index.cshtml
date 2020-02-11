@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ScrumWeb.Models.Tasks>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
     <br />
@@ -26,13 +26,16 @@
                 <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
                     <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
                     <div class="actionLinks">
-                        <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                        <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                        <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
-                        <a title="Delete task" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                        <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </div>
@@ -44,15 +47,18 @@
             @foreach (var item in Model.Where(m => m.TaskStatus == "INPROGRESS"))
             {
                 <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
-                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
+                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription" class="taskText">@item.TaskName</textarea>
                     <div class="actionLinks">
-                        <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                        <a title="Save task"class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                            <i class="fas fa-check"></i>
+                        </a>
+                        <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                        <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
-                        <a title="Delete task" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                        <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </div>
@@ -66,13 +72,16 @@
                 <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
                     <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
                     <div class="actionLinks">
+                        <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                            <i class="fas fa-check"></i>
+                        </a>
                         <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-edit"></i>
                         </a>
                         <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
-                        <a title="Delete task" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                        <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </div>

@@ -40,8 +40,42 @@ function dragLeave() {
 }
 
 function dragDrop() {
-    //save status and edited text
-    this.className = 'empty';
+    var taskID = $(fill).attr("id");
+    var taskText = $(fill).children("textarea").val();
+    var taskDesc = $(fill).children("textarea").attr("title");
+
+    //needs updating
+    var newStatus = "INPROGRESS";
+
+    this.className += 'empty';
     this.className += ' col-sm-4';
     this.append(fill);
+
+    SaveTaskWithAjax();
+}
+
+function SaveTaskWithAjax() {
+    var checkmark = $(fill).closest("i.fas fa-check");
+    console.log(checkmark);
+
+    var taskID = $(fill).attr("id");
+    var taskText = $(fill).children("textarea").val();
+    var taskDesc = $(fill).children("textarea").attr("title");
+
+    //needs updating
+    var newStatus = "INPROGRESS";
+
+    $.ajax
+        ({
+            type: "POST",
+            url: "/Tasks/SaveOnDrop",
+            dataType: "json",
+            data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus },
+            success: function (result) {
+                //
+            },
+            error: function () {
+                alert("Save failed...")
+            }
+        })
 }
