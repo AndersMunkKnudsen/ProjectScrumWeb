@@ -75,10 +75,10 @@
                         <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
                             <i class="fas fa-check"></i>
                         </a>
-                        <a title="Edit task" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                        <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a title="Show task details" class="detailsBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                        <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
                         <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">

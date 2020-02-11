@@ -55,15 +55,24 @@ function dragDrop() {
 }
 
 function SaveTaskWithAjax() {
-    var checkmark = $(fill).closest("i.fas fa-check");
-    console.log(checkmark);
+    //Change checkmark to spinner and back after ajax call
+    //var checkMark = $(fill).find("i.fas fa-check");
+    //$(checkMark).css("color", "red");
 
     var taskID = $(fill).attr("id");
     var taskText = $(fill).children("textarea").val();
     var taskDesc = $(fill).children("textarea").attr("title");
+    var newStatus = "";
 
-    //needs updating
-    var newStatus = "INPROGRESS";
+    if ($(fill).parent().hasClass("todoColumn")) {
+        newStatus = "TODO";
+    }
+    else if ($(fill).parent().hasClass("inprogressColumn")) {
+        newStatus = "INPROGRESS";
+    }
+    else if ($(fill).parent().hasClass("doneColumn")) {
+        newStatus = "DONE";
+    }
 
     $.ajax
         ({
