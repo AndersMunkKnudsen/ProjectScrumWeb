@@ -55,9 +55,7 @@ function dragDrop() {
 }
 
 function SaveTaskWithAjax() {
-    //Change checkmark to spinner and back after ajax call
-    //var checkMark = $(fill).find("i.fas fa-check");
-    //$(checkMark).css("color", "red");
+    //$(fill).append("<div id='loading' class='spinner-border' role='status'><span class='sr-only'>Loading...</span ></div >");
 
     var taskID = $(fill).attr("id");
     var taskText = $(fill).children("textarea").val();
@@ -87,4 +85,29 @@ function SaveTaskWithAjax() {
                 alert("Save failed...")
             }
         })
+}
+
+function DeleteTask(taskID) {
+    console.log(taskID);
+    if (confirm("Delete this task?")) {
+        //Delete the task with ajax
+        $.ajax
+            ({
+                type: "POST",
+                url: "/Tasks/DeleteTask",
+                dataType: "json",
+                data: { TaskID: taskID },
+                success: function (result) {
+                    //alert("Task deleted!")
+                    if ($(fill).attr("id") === taskID) {
+                        $(fill).remove();
+                    }
+                },
+                error: function () {
+                    alert("Delete failed...")
+                }
+            })
+    } else {
+        //Keep task
+    }
 }

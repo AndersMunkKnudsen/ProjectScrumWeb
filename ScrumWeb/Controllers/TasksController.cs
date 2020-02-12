@@ -114,6 +114,21 @@ namespace ScrumWeb.Controllers
                 return Json(new { Msg = "Error" });
             }           
         }
+        [HttpPost]
+        public JsonResult DeleteTask(string TaskID)
+        {
+            if (TaskID != null)
+            {
+                Tasks tasks = db.Tasks.Find(TaskID);
+                db.Tasks.Remove(tasks);
+                db.SaveChanges();
+                return Json(new { Msg = "Sucess" });
+            }
+            else
+            {
+                return Json(new { Msg = "Error" });
+            }
+        }
 
         // GET: Tasks/Delete/5
         public ActionResult Delete(string id)

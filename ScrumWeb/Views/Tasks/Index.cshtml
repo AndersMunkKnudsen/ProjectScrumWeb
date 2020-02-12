@@ -35,7 +35,10 @@
                         <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
-                        <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                        @*<a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>*@
+                        <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </div>
@@ -49,7 +52,7 @@
                 <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
                     <textarea name="" rows="4" cols="30" title="@item.TaskDescription" class="taskText">@item.TaskName</textarea>
                     <div class="actionLinks">
-                        <a title="Save task"class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                        <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
                             <i class="fas fa-check"></i>
                         </a>
                         <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
@@ -58,7 +61,10 @@
                         <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
-                        <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                        @*<a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+            <i class="fas fa-trash-alt"></i>
+        </a>*@
+                        <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </div>
@@ -81,7 +87,10 @@
                         <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                             <i class="fas fa-info"></i>
                         </a>
-                        <a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+                        @*<a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
+            <i class="fas fa-trash-alt"></i>
+        </a>*@
+                        <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </div>
