@@ -48,9 +48,9 @@
                 <a title="Edit project" class="actionLinksBtn" href="@Url.Action("Edit", "Projects", new { id = item.ProjectID })">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a title="Show project details" class="actionLinksBtn" href="@Url.Action("Details", "Projects", new { id = item.ProjectID })">
+                @*<a title="Show project details" class="actionLinksBtn" href="@Url.Action("Details", "Projects", new { id = item.ProjectID })">
                     <i class="fas fa-info"></i>
-                </a>
+                </a>*@
                 <a title="Delete project" class="actionLinksBtn" onclick="DeleteProject('@item.ProjectID')">
                     <i class="fas fa-trash-alt"></i>
                 </a>

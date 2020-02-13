@@ -12,6 +12,7 @@ namespace ScrumWeb.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Web.Mvc;
 
     public partial class Projects
     {
@@ -24,5 +25,6 @@ namespace ScrumWeb.Models
         public string ProjectOwner { get; set; }
         [DisplayName("Project Members:")]
         public string ProjectMembers { get; set; }
+
     }
 }

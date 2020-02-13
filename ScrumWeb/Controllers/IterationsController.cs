@@ -42,6 +42,11 @@ namespace ScrumWeb.Controllers
         // GET: Iterations/Create
         public ActionResult Create()
         {
+            using (db)
+            {
+                var projects = new SelectList(db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList(), "ProjectID", "ProjectName");
+                ViewData["AllProjects"] = projects;
+            }
             return View();
         }
 
@@ -74,6 +79,11 @@ namespace ScrumWeb.Controllers
             if (iterations == null)
             {
                 return HttpNotFound();
+            }
+            using (db)
+            {
+                var projects = new SelectList(db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList(), "ProjectID", "ProjectName");
+                ViewData["AllProjects"] = projects;
             }
             return View(iterations);
         }

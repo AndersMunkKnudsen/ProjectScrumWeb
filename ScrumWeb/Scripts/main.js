@@ -1,6 +1,8 @@
 ﻿const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
 
+$("#AllProjects").addClass("form-control");
+
 // Fill listeners
 fill.addEventListener('dragstart', dragStart);
 fill.addEventListener('dragend', dragEnd);

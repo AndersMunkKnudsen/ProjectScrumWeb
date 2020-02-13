@@ -40,9 +40,9 @@
                     <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                    @*<a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                         <i class="fas fa-info"></i>
-                    </a>
+                    </a>*@
                     <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                         <i class="fas fa-trash-alt"></i>
                     </a>
@@ -63,9 +63,9 @@
                     <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                    @*<a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                         <i class="fas fa-info"></i>
-                    </a>
+                    </a>*@
                     <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                         <i class="fas fa-trash-alt"></i>
                     </a>
@@ -86,9 +86,9 @@
                     <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                    @*<a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                         <i class="fas fa-info"></i>
-                    </a>
+                    </a>*@
                     <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                         <i class="fas fa-trash-alt"></i>
                     </a>
@@ -107,7 +107,7 @@
 
 <table class="table" id="tasksTable">
     <tr>
-        @if (Model.Count() == 0)
+        @if (Model.Where(m => m.TaskStatus == "BACKLOGITEM").Count() == 0)
         {
             <th>No backlog items have been created yet...</th>
         }
@@ -142,9 +142,9 @@
                 <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
                     <i class="fas fa-edit"></i>
                 </a>
-                <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                @*<a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
                     <i class="fas fa-info"></i>
-                </a>
+                </a>*@
                 <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
                     <i class="fas fa-trash-alt"></i>
                 </a>
