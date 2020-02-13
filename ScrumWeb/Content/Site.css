@@ -120,6 +120,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .actionLinksBtn {
     margin-left: 10px;
     margin-right: 10px;
+    color: #a7a7b3;
 }
 
 #RememberMe label {
@@ -130,6 +131,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     background-color: #262728 !important;
     border-color: #ced4da17 !important;
     color: #ced4da !important;
+}
+
+.form-group label {
+    color: #a7a7b3;
 }
 
 dt, dd, th, td {

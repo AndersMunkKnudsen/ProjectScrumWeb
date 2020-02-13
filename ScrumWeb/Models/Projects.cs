@@ -11,11 +11,15 @@ namespace ScrumWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Projects
     {
         public string ProjectID { get; set; }
         public string ProjectName { get; set; }
         public string ProjectDescription { get; set; }
+        public string ProjectOwner { get; set; }
+        [DisplayName("Project members: (E-Mail address comma seperated)")]
+        public string ProjectMembers { get; set; }
     }
 }

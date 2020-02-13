@@ -4,143 +4,141 @@
     ViewBag.Title = "Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <br />
-    <h2 style="text-align:center;">Your Tasks</h2>
-    <hr />
-    <p class="createBtn">
-        @Html.ActionLink("+", "Create")
-    </p>
-    <hr />
+<br />
+<h2 style="text-align:center;">Your Tasks</h2>
+<hr />
+<p class="createBtn">
+    @Html.ActionLink("+", "Create")
+</p>
+<hr />
 
-    @*-----------------------TASK STATUS BOARD START --------------------------*@
+@*-----------------------TASK STATUS BOARD START --------------------------*@
 
-    <div class="row">
-        <h2 class="col-sm-4" style="text-align: center;">TODO</h2>
-        <h2 class="col-sm-4" style="text-align: center;">IN PROGRESS</h2>
-        <h2 class="col-sm-4" style="text-align: center;">DONE</h2>
-    </div>
-    <div class="row">
-        <div class="empty col-sm-4 todoColumn">
-            @foreach (var item in Model.Where(m => m.TaskStatus == "TODO"))
-            {   
-                <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
-                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
-                    <div class="actionLinks">
-                        <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
-                            <i class="fas fa-check"></i>
-                        </a>
-                        <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-info"></i>
-                        </a>
-                        @*<a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>*@
-                        <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
+<div class="row">
+    <h2 class="col-sm-4" style="text-align: center;">TODO</h2>
+    <h2 class="col-sm-4" style="text-align: center;">IN PROGRESS</h2>
+    <h2 class="col-sm-4" style="text-align: center;">DONE</h2>
+</div>
+<div class="row">
+    <div class="empty col-sm-4 todoColumn">
+        @foreach (var item in Model.Where(m => m.TaskStatus == "TODO"))
+        {
+            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
+                <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
+                <div class="actionLinks">
+                    <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                        <i class="fas fa-check"></i>
+                    </a>
+                    <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                        <i class="fas fa-info"></i>
+                    </a>
+                    <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
                 </div>
-            }
-        </div>
-
-        <div class="empty col-sm-4 inprogressColumn">
-            @foreach (var item in Model.Where(m => m.TaskStatus == "INPROGRESS"))
-            {
-                <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
-                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription" class="taskText">@item.TaskName</textarea>
-                    <div class="actionLinks">
-                        <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
-                            <i class="fas fa-check"></i>
-                        </a>
-                        <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-info"></i>
-                        </a>
-                        @*<a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
-            <i class="fas fa-trash-alt"></i>
-        </a>*@
-                        <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            }
-        </div>
-
-        <div class="empty col-sm-4 doneColumn">
-            @foreach (var item in Model.Where(m => m.TaskStatus == "DONE"))
-            {
-                <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
-                    <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
-                    <div class="actionLinks">
-                        <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
-                            <i class="fas fa-check"></i>
-                        </a>
-                        <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
-                            <i class="fas fa-info"></i>
-                        </a>
-                        @*<a title="Delete task" class="actionLinksBtn" href="@Url.Action("Delete", "Tasks", new { id = item.TaskID })">
-            <i class="fas fa-trash-alt"></i>
-        </a>*@
-                        <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </div>
-                </div>
-            }
-        </div>
+            </div>
+        }
     </div>
 
-    @*-----------------------TASK STATUS BOARD END --------------------------*@
+    <div class="empty col-sm-4 inprogressColumn">
+        @foreach (var item in Model.Where(m => m.TaskStatus == "INPROGRESS"))
+        {
+            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
+                <textarea name="" rows="4" cols="30" title="@item.TaskDescription" class="taskText">@item.TaskName</textarea>
+                <div class="actionLinks">
+                    <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                        <i class="fas fa-check"></i>
+                    </a>
+                    <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                        <i class="fas fa-info"></i>
+                    </a>
+                    <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
 
-    <br />
-    <hr />
-    <br />
+    <div class="empty col-sm-4 doneColumn">
+        @foreach (var item in Model.Where(m => m.TaskStatus == "DONE"))
+        {
+            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus">
+                <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
+                <div class="actionLinks">
+                    <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
+                        <i class="fas fa-check"></i>
+                    </a>
+                    <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                        <i class="fas fa-info"></i>
+                    </a>
+                    <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 
-    @*<table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TaskStatus)
-                </th>
-                <th></th>
-            </tr>
+@*-----------------------TASK STATUS BOARD END --------------------------*@
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TaskName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TaskDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TaskStatus)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.TaskID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.TaskID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.TaskID })
-                    </td>
-                </tr>
-            }
-        </table>*@
+<br />
+<hr />
+<h1>BACKLOG ITEMS</h1>
+<br />
 
-    <br />
-    <br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskStatus)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Where(m => m.TaskStatus == "BACKLOGITEM"))
+    {
+        <tr id="@item.TaskID">
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskStatus)
+            </td>
+            <td>
+                <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a title="Show task details" class="actionLinksBtn" href="@Url.Action("Details", "Tasks", new { id = item.TaskID })">
+                    <i class="fas fa-info"></i>
+                </a>
+                <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+
+<br />
+<br />
 }
 <script src="~/Scripts/main.js"></script>

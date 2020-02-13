@@ -20,6 +20,8 @@
           <Property Name="ProjectID" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="ProjectName" Type="varchar(max)" />
           <Property Name="ProjectDescription" Type="varchar(max)" />
+          <Property Name="ProjectOwner" Type="varchar" MaxLength="250" />
+          <Property Name="ProjectMembers" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
@@ -62,6 +64,8 @@
           <Property Name="ProjectID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ProjectName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ProjectDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectOwner" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectMembers" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
@@ -103,6 +107,8 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="ScrumDBModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectMembers" ColumnName="ProjectMembers" />
+                <ScalarProperty Name="ProjectOwner" ColumnName="ProjectOwner" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="ProjectDescription" ColumnName="ProjectDescription" />

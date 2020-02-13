@@ -40,10 +40,14 @@
         @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.TaskStatus, new SelectList(
-           new List<Object> { new { value = "TODO", text = "TODO" }, new { value = "INPROGRESS", text = "IN PROGRESS" }, new { value = "DONE", text = "DONE" }, new { value = "BACKLOGITEM", text = "BACKLOGITEM" } }, "value", "text", 2), new { @class = "form-control" })
+           new List<Object> { new { value = "BACKLOGITEM", text = "BACKLOGITEM" }, new { value = "TODO", text = "TODO" }, new { value = "INPROGRESS", text = "IN PROGRESS" }, new { value = "DONE", text = "DONE" } }, "value", "text", 2), new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.TaskStatus, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    @*DropdownlistFor selecting project*@
+
+    @*DropdownlistFor iteration in chosen project. Only show this when project is chosen*@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -97,7 +97,7 @@ namespace ScrumWeb.Controllers
         [HttpPost] 
         public JsonResult SaveOnDrop(string TaskID, string TaskName, string TaskDescription, string TaskStatus)
         {
-            if (TaskID != null)
+            if (TaskID != null && TaskStatus != "")
             {
                 Tasks incomingTask = new Tasks();
                 incomingTask.TaskID = TaskID;

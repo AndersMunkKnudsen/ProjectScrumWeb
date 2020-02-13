@@ -79,7 +79,6 @@ function SaveTaskWithAjax() {
             dataType: "json",
             data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus },
             success: function (result) {
-                //
             },
             error: function () {
                 alert("Save failed...")
@@ -88,9 +87,7 @@ function SaveTaskWithAjax() {
 }
 
 function DeleteTask(taskID) {
-    console.log(taskID);
     if (confirm("Delete this task?")) {
-        //Delete the task with ajax
         $.ajax
             ({
                 type: "POST",
@@ -98,10 +95,7 @@ function DeleteTask(taskID) {
                 dataType: "json",
                 data: { TaskID: taskID },
                 success: function (result) {
-                    //alert("Task deleted!")
-                    if ($(fill).attr("id") === taskID) {
-                        $(fill).remove();
-                    }
+                    document.getElementById(taskID).remove();
                 },
                 error: function () {
                     alert("Delete failed...")

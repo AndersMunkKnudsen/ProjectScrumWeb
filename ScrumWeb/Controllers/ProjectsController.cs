@@ -21,7 +21,7 @@ namespace ScrumWeb.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
             }
-            return View(db.Projects.ToList());
+            return View(db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList());
         }
 
         // GET: Projects/Details/5
@@ -50,11 +50,13 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,ProjectName,ProjectDescription")] Projects projects)
+        public ActionResult Create([Bind(Include = "ProjectID,ProjectName,ProjectDescription,ProjectOwner, ProjectMembers")] Projects projects)
         {
             projects.ProjectID = Guid.NewGuid().ToString();
             if (ModelState.IsValid)
             {
+                projects.ProjectOwner = User.Identity.Name;
+                projects.ProjectMembers = projects.ProjectOwner + "," + projects.ProjectMembers;
                 db.Projects.Add(projects);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,7 +85,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectID,ProjectName,ProjectDescription")] Projects projects)
+        public ActionResult Edit([Bind(Include = "ProjectID,ProjectName,ProjectDescription,ProjectOwner,ProjectMembers")] Projects projects)
         {
             if (ModelState.IsValid)
             {

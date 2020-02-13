@@ -18,6 +18,5 @@ namespace ScrumWeb.Models
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
         public string TaskStatus { get; set; }
-
     }
 }
