@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ScrumWeb.Models.Tasks>
 
 @{
-    ViewBag.Title = "Tasks";
+    ViewBag.Title = "Tasks: " + User.Identity.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*INTRO SECTION START*@
