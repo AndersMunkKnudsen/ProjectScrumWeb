@@ -1,23 +1,31 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@*@model IEnumerable<ScrumWeb.Models.OverviewStats>*@
+
+@{
+    ViewBag.Title = "Overview: " + User.Identity.Name;
 }
 @*Check if user is logged ind*@
 @if (@Request.IsAuthenticated)
 {
+    @*INTRO SECTION START*@
     <br />
-    <h1>Welcome back @User.Identity.Name</h1>
     <br />
+    <br />
+    <div class="headline">
+        <h2>Welcome back @User.Identity.Name</h2>
+    </div>
+    <br />
+    @*INTRO SECTION END*@
     <hr />
-    <h2>Your projects count: 10</h2>
     <br />
-    <hr />
-    <h2>Your iterations count: 5</h2>
     <br />
-    <hr />
-    <h2>Your tasks count: 16</h2>
+    <h2>Your projects count: @ViewBag.projectsCount</h2>
     <br />
-    <hr />
-    <h2>Your teams count: 1</h2>
     <br />
-    <hr />
+    <h2>Your iterations count: @ViewBag.iterationsCount</h2>
+    <br />
+    <br />
+    <h2>Your tasks count: @ViewBag.tasksCount</h2>
+    <br />
+    <br />
+
 }

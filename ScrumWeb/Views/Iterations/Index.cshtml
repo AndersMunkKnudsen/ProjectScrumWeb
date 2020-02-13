@@ -4,12 +4,18 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*INTRO SECTION START*@
 <br />
-<h2>Your Projects</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<br />
+<br />
+<div class="headline">
+    <h2>Your Iterations</h2>
+    <p class="createBtn" title="Add new iteration">
+        @Html.ActionLink("+", "Create")
+    </p>
+</div>
+<br />
+@*INTRO SECTION END*@
 <table class="table">
     <tr>
         <th>
@@ -21,20 +27,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.IterationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IterationDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IterationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IterationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IterationID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IterationName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IterationDescription)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.IterationID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.IterationID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IterationID })
+            </td>
+        </tr>
+    }
 
 </table>

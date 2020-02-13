@@ -4,15 +4,23 @@
     ViewBag.Title = "Tasks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*INTRO SECTION START*@
 <br />
-<h2 style="text-align:center;">Your Tasks</h2>
-<hr />
-<p class="createBtn">
-    @Html.ActionLink("+", "Create")
-</p>
-<hr />
+<br />
+<br />
+<div class="headline">
+    <h2>Your Tasks</h2>
+    <p class="createBtn" title="Add new task">
+        @Html.ActionLink("+", "Create")
+    </p>
+</div>
+<br />
+@*INTRO SECTION END*@
 
 @*-----------------------TASK STATUS BOARD START --------------------------*@
+
+<hr>
+<br />
 
 <div class="row">
     <h2 class="col-sm-4" style="text-align: center;">TODO</h2>
@@ -94,7 +102,7 @@
 
 <br />
 <hr />
-<h1>BACKLOG ITEMS</h1>
+<h2>BACKLOG ITEMS</h2>
 <br />
 
 <table class="table">

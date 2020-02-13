@@ -4,13 +4,19 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@*INTRO SECTION START*@
 <br />
-<h2>Your Projects</h2>
+<br />
+<br />
+<div class="headline">
+    <h2>Your Projects</h2>
+    <p class="createBtn" title="Add new project">
+        @Html.ActionLink("+", "Create")
+    </p>
+</div>
+<br />
+@*INTRO SECTION END*@
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -22,20 +28,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectDescription)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectDescription)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+                </td>*@
+            <td>
+                <a title="Edit project" class="actionLinksBtn" href="@Url.Action("Edit", "Projects", new { id = item.ProjectID })">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a title="Show project details" class="actionLinksBtn" href="@Url.Action("Details", "Projects", new { id = item.ProjectID })">
+                    <i class="fas fa-info"></i>
+                </a>
+                <a title="Delete project" class="actionLinksBtn" onclick="DeleteTask('@item.ProjectID')">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+    }
 
 </table>
