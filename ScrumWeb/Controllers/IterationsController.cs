@@ -50,7 +50,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription")] Iterations iterations)
+        public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription, IterationStartDate, IterationEndDate")] Iterations iterations)
         {
             iterations.IterationID = Guid.NewGuid().ToString();
             if (ModelState.IsValid)
@@ -107,6 +107,22 @@ namespace ScrumWeb.Controllers
                 return HttpNotFound();
             }
             return View(iterations);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteIteration(string IterationID)
+        {
+            if (IterationID != null)
+            {
+                Iterations iteration  = db.Iterations.Find(IterationID);
+                db.Iterations.Remove(iteration);
+                db.SaveChanges();
+                return Json(new { Msg = "Sucess" });
+            }
+            else
+            {
+                return Json(new { Msg = "Error" });
+            }
         }
 
         // POST: Iterations/Delete/5

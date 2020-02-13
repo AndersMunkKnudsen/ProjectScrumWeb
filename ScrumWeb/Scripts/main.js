@@ -96,6 +96,60 @@ function DeleteTask(taskID) {
                 data: { TaskID: taskID },
                 success: function (result) {
                     document.getElementById(taskID).remove();
+                    var trCount = $("#tasksTable tr").length;
+                    if (trCount === 1) {
+                        $("#tasksTable tr").html("<th>No projects have been created yet...</th>");
+                    }
+                },
+                error: function () {
+                    alert("Delete failed...")
+                }
+            })
+    } else {
+        //Keep task
+    }
+}
+
+function DeleteProject(projectID) {
+    if (confirm("Delete this project?")) {
+        $.ajax
+            ({
+                type: "POST",
+                url: "/Projects/DeleteProject",
+                dataType: "json",
+                data: { ProjectID: projectID },
+                success: function (result) {
+                    document.getElementById(projectID).remove();
+                    var trCount = $("#projectsTable tr").length;
+                    if (trCount === 1) {
+                        $("#projectsTable tr").html("<th>No projects have been created yet...</th>");
+                    }
+
+                },
+                error: function () {
+                    alert("Delete failed...")
+                }
+            })
+    } else {
+        //Keep task
+    }
+}
+
+function DeleteIteration(iterationID) {
+    if (confirm("Delete this iteration?")) {
+        $.ajax
+            ({
+                type: "POST",
+                url: "/Iterations/DeleteIteration",
+                dataType: "json",
+                data: { IterationID: iterationID },
+                success: function (result) {
+                    document.getElementById(iterationID).remove();
+                    var trCount = $("#iterationsTable tr").length;
+                    if (trCount === 1) {
+                        $("#iterationsTable tr").html("<th>No iterations have been created yet...</th>");
+                    }
+
                 },
                 error: function () {
                     alert("Delete failed...")

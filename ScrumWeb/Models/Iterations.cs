@@ -11,11 +11,18 @@ namespace ScrumWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Iterations
     {
         public string IterationID { get; set; }
+        [DisplayName("Iteration Name:")]
         public string IterationName { get; set; }
+        [DisplayName("Iteration Description:")]
         public string IterationDescription { get; set; }
+        [DisplayName("Iteration Start Date:")]
+        public Nullable<System.DateTime> IterationStartDate { get; set; }
+        [DisplayName("Iteration End Date:")]
+        public Nullable<System.DateTime> IterationEndDate { get; set; }
     }
 }

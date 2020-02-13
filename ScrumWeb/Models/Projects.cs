@@ -16,10 +16,13 @@ namespace ScrumWeb.Models
     public partial class Projects
     {
         public string ProjectID { get; set; }
+        [DisplayName("Project Name:")]
         public string ProjectName { get; set; }
+        [DisplayName("Project Description:")]
         public string ProjectDescription { get; set; }
+        [DisplayName("Project Owner:")]
         public string ProjectOwner { get; set; }
-        [DisplayName("Project members: (E-Mail address comma seperated)")]
+        [DisplayName("Project Members:")]
         public string ProjectMembers { get; set; }
     }
 }

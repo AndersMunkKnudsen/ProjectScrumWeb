@@ -12,6 +12,8 @@
           <Property Name="IterationID" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="IterationName" Type="varchar(max)" />
           <Property Name="IterationDescription" Type="varchar(max)" />
+          <Property Name="IterationStartDate" Type="datetime" />
+          <Property Name="IterationEndDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -56,6 +58,8 @@
           <Property Name="IterationID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IterationName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IterationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IterationStartDate" Type="DateTime" Precision="3" />
+          <Property Name="IterationEndDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -98,6 +102,8 @@
           <EntitySetMapping Name="Iterations">
             <EntityTypeMapping TypeName="ScrumDBModel.Iterations">
               <MappingFragment StoreEntitySet="Iterations">
+                <ScalarProperty Name="IterationEndDate" ColumnName="IterationEndDate" />
+                <ScalarProperty Name="IterationStartDate" ColumnName="IterationStartDate" />
                 <ScalarProperty Name="IterationID" ColumnName="IterationID" />
                 <ScalarProperty Name="IterationName" ColumnName="IterationName" />
                 <ScalarProperty Name="IterationDescription" ColumnName="IterationDescription" />

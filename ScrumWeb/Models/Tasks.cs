@@ -11,12 +11,16 @@ namespace ScrumWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Tasks
     {
         public string TaskID { get; set; }
+        [DisplayName("Task Name:")]
         public string TaskName { get; set; }
+        [DisplayName("Task Description:")]
         public string TaskDescription { get; set; }
+        [DisplayName("Task Status:")]
         public string TaskStatus { get; set; }
     }
 }

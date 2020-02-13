@@ -111,6 +111,22 @@ namespace ScrumWeb.Controllers
             return View(projects);
         }
 
+        [HttpPost]
+        public JsonResult DeleteProject(string ProjectID)
+        {
+            if (ProjectID != null)
+            {
+                Projects task = db.Projects.Find(ProjectID);
+                db.Projects.Remove(task);
+                db.SaveChanges();
+                return Json(new { Msg = "Sucess" });
+            }
+            else
+            {
+                return Json(new { Msg = "Error" });
+            }
+        }
+
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -17,31 +17,33 @@
 <br />
 @*INTRO SECTION END*@
 
-<table class="table">
+<table class="table" id="projectsTable">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProjectDescription)
-        </th>
-        <th></th>
+        @if (Model.Count() == 0)
+        {
+            <th>No backlog items have been created yet...</th>
+        }
+        else
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectDescription)
+            </th>
+            <th></th>
+        }
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr id="@item.ProjectID">
             <td>
                 @Html.DisplayFor(modelItem => item.ProjectName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProjectDescription)
             </td>
-            @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
-                </td>*@
             <td>
                 <a title="Edit project" class="actionLinksBtn" href="@Url.Action("Edit", "Projects", new { id = item.ProjectID })">
                     <i class="fas fa-edit"></i>
@@ -49,11 +51,10 @@
                 <a title="Show project details" class="actionLinksBtn" href="@Url.Action("Details", "Projects", new { id = item.ProjectID })">
                     <i class="fas fa-info"></i>
                 </a>
-                <a title="Delete project" class="actionLinksBtn" onclick="DeleteTask('@item.ProjectID')">
+                <a title="Delete project" class="actionLinksBtn" onclick="DeleteProject('@item.ProjectID')">
                     <i class="fas fa-trash-alt"></i>
                 </a>
             </td>
         </tr>
     }
-
 </table>
