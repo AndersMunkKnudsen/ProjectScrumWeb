@@ -59,7 +59,7 @@ textarea {
 
 .empty {
     display: inline-block;
-    height: 160px;
+    height: 215px;
     width: 160px;
     /*margin: 10px;*/
     /*border: solid 10px #262728 !important;*/
@@ -69,7 +69,7 @@ textarea {
     border-bottom: 15px solid #1a1a1b;
     border-radius: 15px 15px 15px 15px;
     background: #191a1bf0;
-    min-height: 775px;
+    /*min-height: 775px;*/
     margin-bottom: 50px;
 }
 

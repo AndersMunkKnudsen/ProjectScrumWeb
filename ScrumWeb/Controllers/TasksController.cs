@@ -21,7 +21,7 @@ namespace ScrumWeb.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
             }
-            return View(db.Tasks.ToList());
+            return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).ToList());
         }
 
         // GET: Tasks/Details/5
@@ -50,7 +50,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus")] Tasks tasks)
+        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser")] Tasks tasks)
         {
             tasks.TaskID = Guid.NewGuid().ToString();
             if (ModelState.IsValid)
@@ -83,7 +83,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus")] Tasks tasks)
+        public ActionResult Edit([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser")] Tasks tasks)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,7 @@ namespace ScrumWeb.Controllers
         }
 
         [HttpPost] 
-        public JsonResult SaveOnDrop(string TaskID, string TaskName, string TaskDescription, string TaskStatus)
+        public JsonResult SaveOnDrop(string TaskID, string TaskName, string TaskDescription, string TaskStatus, string TaskAssignedToUser)
         {
             if (TaskID != null && TaskStatus != "")
             {
@@ -104,6 +104,7 @@ namespace ScrumWeb.Controllers
                 incomingTask.TaskName = TaskName;
                 incomingTask.TaskDescription = TaskDescription;
                 incomingTask.TaskStatus = TaskStatus;
+                incomingTask.TaskAssignedToUser = TaskAssignedToUser;
 
                 db.Entry(incomingTask).State = EntityState.Modified;
                 db.SaveChanges();

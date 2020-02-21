@@ -1,7 +1,11 @@
 ﻿const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
 
-$("#AllProjects").addClass("form-control");
+$(document).ready(function () {
+    AdjustScrumBoardHeightBasedOnTasks();
+});
+
+$("#IterationProjectID").addClass("form-control");
 
 // Fill listeners
 fill.addEventListener('dragstart', dragStart);
@@ -42,35 +46,29 @@ function dragLeave() {
 }
 
 function dragDrop() {
-    var taskID = $(fill).attr("id");
-    var taskText = $(fill).children("textarea").val();
-    var taskDesc = $(fill).children("textarea").attr("title");
-
-    //needs updating
-    var newStatus = "INPROGRESS";
-
     this.className += 'empty';
     this.className += ' col-sm-4';
     this.append(fill);
-
+    //AdjustScrumBoardHeightBasedOnTasks();
     SaveTaskWithAjax();
 }
 
 function SaveTaskWithAjax() {
     //$(fill).append("<div id='loading' class='spinner-border' role='status'><span class='sr-only'>Loading...</span ></div >");
-
     var taskID = $(fill).attr("id");
     var taskText = $(fill).children("textarea").val();
     var taskDesc = $(fill).children("textarea").attr("title");
+    var taskUser = $(fill).attr("data-user");
+
     var newStatus = "";
 
-    if ($(fill).parent().hasClass("todoColumn")) {
+    if ($(fill).parent().attr("id") === "todoColumn") {
         newStatus = "TODO";
     }
-    else if ($(fill).parent().hasClass("inprogressColumn")) {
+    else if ($(fill).parent().attr("id") === "inprogressColumn") {
         newStatus = "INPROGRESS";
     }
-    else if ($(fill).parent().hasClass("doneColumn")) {
+    else if ($(fill).parent().attr("id") === "doneColumn") {
         newStatus = "DONE";
     }
 
@@ -79,7 +77,7 @@ function SaveTaskWithAjax() {
             type: "POST",
             url: "/Tasks/SaveOnDrop",
             dataType: "json",
-            data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus },
+            data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus, TaskAssignedToUser: taskUser },
             success: function (result) {
             },
             error: function () {
@@ -100,7 +98,7 @@ function DeleteTask(taskID) {
                     document.getElementById(taskID).remove();
                     var trCount = $("#tasksTable tr").length;
                     if (trCount === 1) {
-                        $("#tasksTable tr").html("<th>No projects have been created yet...</th>");
+                        $("#tasksTable tr").html("<th>No backlog items have been created yet...</th>");
                     }
                 },
                 error: function () {
@@ -160,4 +158,10 @@ function DeleteIteration(iterationID) {
     } else {
         //Keep task
     }
+}
+
+function AdjustScrumBoardHeightBasedOnTasks() {
+    var taskCount = $('.fill').length;
+    var setHeight = 215 * taskCount;
+    $('.empty').css('min-height', setHeight + 'px');
 }

@@ -42,11 +42,17 @@ namespace ScrumWeb.Controllers
         // GET: Iterations/Create
         public ActionResult Create()
         {
-            using (db)
+            var projects = db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList();
+            List<SelectListItem> projectsList = new List<SelectListItem>();
+            foreach (Projects item in projects)
             {
-                var projects = new SelectList(db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList(), "ProjectID", "ProjectName");
-                ViewData["AllProjects"] = projects;
+                projectsList.Add(new SelectListItem
+                {
+                    Text = item.ProjectName,
+                    Value = item.ProjectID.ToString()
+                });
             }
+            ViewBag.Projects = projectsList;
             return View();
         }
 
@@ -55,7 +61,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription, IterationStartDate, IterationEndDate")] Iterations iterations)
+        public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription, IterationStartDate, IterationEndDate,IterationProjectID")] Iterations iterations)
         {
             iterations.IterationID = Guid.NewGuid().ToString();
             if (ModelState.IsValid)

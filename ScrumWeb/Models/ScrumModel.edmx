@@ -14,6 +14,7 @@
           <Property Name="IterationDescription" Type="varchar(max)" />
           <Property Name="IterationStartDate" Type="datetime" />
           <Property Name="IterationEndDate" Type="datetime" />
+          <Property Name="IterationProjectID" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -33,6 +34,7 @@
           <Property Name="TaskName" Type="varchar(max)" />
           <Property Name="TaskDescription" Type="varchar(max)" />
           <Property Name="TaskStatus" Type="varchar" MaxLength="250" />
+          <Property Name="TaskAssignedToUser" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -60,6 +62,7 @@
           <Property Name="IterationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IterationStartDate" Type="DateTime" Precision="3" />
           <Property Name="IterationEndDate" Type="DateTime" Precision="3" />
+          <Property Name="IterationProjectID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Projects">
           <Key>
@@ -79,6 +82,7 @@
           <Property Name="TaskName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaskStatus" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TaskAssignedToUser" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -102,6 +106,7 @@
           <EntitySetMapping Name="Iterations">
             <EntityTypeMapping TypeName="ScrumDBModel.Iterations">
               <MappingFragment StoreEntitySet="Iterations">
+                <ScalarProperty Name="IterationProjectID" ColumnName="IterationProjectID" />
                 <ScalarProperty Name="IterationEndDate" ColumnName="IterationEndDate" />
                 <ScalarProperty Name="IterationStartDate" ColumnName="IterationStartDate" />
                 <ScalarProperty Name="IterationID" ColumnName="IterationID" />
@@ -124,6 +129,7 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="ScrumDBModel.Tasks">
               <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="TaskAssignedToUser" ColumnName="TaskAssignedToUser" />
                 <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />
                 <ScalarProperty Name="TaskName" ColumnName="TaskName" />

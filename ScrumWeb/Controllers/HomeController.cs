@@ -19,7 +19,7 @@ namespace ScrumWeb.Controllers
             }
             ViewBag.projectsCount = db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).Count().ToString();
             ViewBag.iterationsCount = db.Iterations.Count();
-            ViewBag.tasksCount = db.Tasks.Count();
+            ViewBag.tasksCount = db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).Count();
 
             return View();
         }
