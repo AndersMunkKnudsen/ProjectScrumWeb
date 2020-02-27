@@ -11,21 +11,13 @@ namespace ScrumWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Tasks
     {
         public string TaskID { get; set; }
-        [Required]
-        [DisplayName("Task name: ")]
         public string TaskName { get; set; }
-        [DisplayName("Task description: ")]
         public string TaskDescription { get; set; }
-        [DisplayName("Choose task status: ")]
         public string TaskStatus { get; set; }
-        [Required]
-        [DisplayName("Assigned user, format e.g. user@domain.com")]
         public string TaskAssignedToUser { get; set; }
     }
 }

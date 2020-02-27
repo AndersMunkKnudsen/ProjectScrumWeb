@@ -95,7 +95,7 @@ namespace ScrumWeb.Controllers
         }
 
         [HttpPost] 
-        public JsonResult SaveOnDrop(string TaskID, string TaskName, string TaskDescription, string TaskStatus, string TaskAssignedToUser)
+        public JsonResult SaveWithAjax(string TaskID, string TaskName, string TaskDescription, string TaskStatus, string TaskAssignedToUser)
         {
             if (TaskID != null && TaskStatus != "")
             {

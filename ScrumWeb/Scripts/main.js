@@ -1,15 +1,28 @@
 ﻿const fill = document.querySelector('.fill');
 const empties = document.querySelectorAll('.empty');
 
+var $counter = 0;
+var $newTask = {};
+
+//Index of task being dragged around 
+var taskIndex = "";
+var dragTaskID = "";
+
+//setup
 $(document).ready(function () {
     AdjustScrumBoardHeightBasedOnTasks();
+    $('.fill').each(function () {
+        $counter += 1;
+        $newTask[($counter)] = this;
+        $(this).attr('index', $counter);
+        this.addEventListener('dragstart', dragStart);
+        this.addEventListener('dragend', dragEnd);
+    });
 });
 
 $("#IterationProjectID").addClass("form-control");
+$("#AllProjects").addClass("form-control");
 
-// Fill listeners
-fill.addEventListener('dragstart', dragStart);
-fill.addEventListener('dragend', dragEnd);
 
 // Loop through empty boxes and add listeners
 for (const empty of empties) {
@@ -23,6 +36,8 @@ for (const empty of empties) {
 
 function dragStart() {
     this.className += ' hold';
+    taskIndex = $(this).attr('index');
+    dragTaskID = $(this).attr('id');
     setTimeout(() => (this.className = 'invisible'), 0);
 }
 
@@ -48,34 +63,62 @@ function dragLeave() {
 function dragDrop() {
     this.className += 'empty';
     this.className += ' col-sm-4';
-    this.append(fill);
-    //AdjustScrumBoardHeightBasedOnTasks();
-    SaveTaskWithAjax();
+    console.log(dragTaskID);
+    var elementToAppend = document.getElementById(dragTaskID);
+    this.append(elementToAppend);
+    SaveTaskWithAjax(elementToAppend);
 }
 
-function SaveTaskWithAjax() {
-    //$(fill).append("<div id='loading' class='spinner-border' role='status'><span class='sr-only'>Loading...</span ></div >");
-    var taskID = $(fill).attr("id");
-    var taskText = $(fill).children("textarea").val();
-    var taskDesc = $(fill).children("textarea").attr("title");
-    var taskUser = $(fill).attr("data-user");
+function SaveTaskWithAjax(elementToAppend) {
+    $(".fa-check").hide();
+    $(".spinner-grow").show();
 
+    //declare variables
+    var taskID = $(elementToAppend).attr("id");
+    var taskText = $(elementToAppend).children("textarea").val();
+    var taskDesc = $(elementToAppend).children("textarea").attr("title");
+    var taskUser = $(elementToAppend).attr("data-user");
     var newStatus = "";
 
-    if ($(fill).parent().attr("id") === "todoColumn") {
-        newStatus = "TODO";
+    if (elementToAppend === undefined) {
+    //triggered if called from scrumboard checkmark
+        taskID = $(fill).attr("id");
+        taskText = $(fill).children("textarea").val();
+        taskDesc = $(fill).children("textarea").attr("title");
+        taskUser = $(fill).attr("data-user");
+
+        if ($(fill).parent().attr("id") === "todoColumn") {
+            newStatus = "TODO";
+        }
+        else if ($(fill).parent().attr("id") === "inprogressColumn") {
+            newStatus = "INPROGRESS";
+        }
+        else if ($(fill).parent().attr("id") === "doneColumn") {
+            newStatus = "DONE";
+        }
     }
-    else if ($(fill).parent().attr("id") === "inprogressColumn") {
-        newStatus = "INPROGRESS";
-    }
-    else if ($(fill).parent().attr("id") === "doneColumn") {
-        newStatus = "DONE";
+    else {
+    //triggered if elsewhere
+        taskID = $(elementToAppend).attr("id");
+        taskText = $(elementToAppend).children("textarea").val();
+        taskDesc = $(elementToAppend).children("textarea").attr("title");
+        taskUser = $(elementToAppend).attr("data-user");
+
+        if ($(elementToAppend).parent().attr("id") === "todoColumn") {
+            newStatus = "TODO";
+        }
+        else if ($(elementToAppend).parent().attr("id") === "inprogressColumn") {
+            newStatus = "INPROGRESS";
+        }
+        else if ($(elementToAppend).parent().attr("id") === "doneColumn") {
+            newStatus = "DONE";
+        }
     }
 
     $.ajax
         ({
             type: "POST",
-            url: "/Tasks/SaveOnDrop",
+            url: "/Tasks/SaveWithAjax",
             dataType: "json",
             data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus, TaskAssignedToUser: taskUser },
             success: function (result) {

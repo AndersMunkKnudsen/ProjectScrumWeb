@@ -38,14 +38,16 @@
     <div class="form-group">
         <label class="control-label col-md-2">Select Project:</label>
         <div class="col-md-10">
-            @Html.DropDownList("AllProjects", (IEnumerable<SelectListItem>)ViewData["AllProjects"])
+            @*@Html.DropDownList("AllProjects", (IEnumerable<SelectListItem>)ViewData["AllProjects"], new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.DropDownListFor(model => model.IterationProjectID, (IEnumerable<SelectListItem>)ViewData["AllProjects"], new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.IterationStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.IterationStartDate, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.IterationStartDate, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.EditorFor(model => model.IterationStartDate, "{0:yyyy/MM/dd}", new { htmlAttributes = new { @class = "form-control", @type = "date", @text = Model.IterationStartDate } })
             @Html.ValidationMessageFor(model => model.IterationStartDate, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -53,7 +55,8 @@
     <div class="form-group">
         @Html.LabelFor(model => model.IterationEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.IterationEndDate, new { htmlAttributes = new { @class = "form-control" } })
+            @*@Html.EditorFor(model => model.IterationEndDate, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.EditorFor(model => model.IterationEndDate, "{0:yyyy/MM/dd}", new { htmlAttributes = new { @class = "form-control", @type = "date", @text = Model.IterationEndDate } })
             @Html.ValidationMessageFor(model => model.IterationEndDate, "", new { @class = "text-danger" })
         </div>
     </div>

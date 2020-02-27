@@ -61,8 +61,9 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription, IterationStartDate, IterationEndDate,IterationProjectID")] Iterations iterations)
+        public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription,IterationStartDate,IterationEndDate,IterationProjectID")] Iterations iterations)
         {
+
             iterations.IterationID = Guid.NewGuid().ToString();
             if (ModelState.IsValid)
             {
@@ -99,7 +100,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IterationID,IterationName,IterationDescription")] Iterations iterations)
+        public ActionResult Edit([Bind(Include = "IterationID,IterationName,IterationDescription,IterationStartDate,IterationEndDate,IterationProjectID")] Iterations iterations)
         {
             if (ModelState.IsValid)
             {

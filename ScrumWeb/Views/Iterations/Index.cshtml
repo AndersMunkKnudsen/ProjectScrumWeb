@@ -47,9 +47,6 @@
                 <a title="Edit iteration" class="actionLinksBtn" href="@Url.Action("Edit", "Iterations", new { id = item.IterationID })">
                     <i class="fas fa-edit"></i>
                 </a>
-                @*<a title="Show iteration details" class="actionLinksBtn" href="@Url.Action("Details", "Iterations", new { id = item.IterationID })">
-                    <i class="fas fa-info"></i>
-                </a>*@
                 <a title="Delete iteration" class="actionLinksBtn" onclick="DeleteIteration('@item.IterationID')">
                     <i class="fas fa-trash-alt"></i>
                 </a>

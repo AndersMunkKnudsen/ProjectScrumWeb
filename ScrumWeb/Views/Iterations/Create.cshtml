@@ -18,7 +18,6 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @*@Html.LabelFor(model => model.IterationID, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.IterationID, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.IterationID, "", new { @class = "text-danger" })
@@ -45,15 +44,13 @@
             <label class="control-label col-md-2">Select Project:</label>
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.IterationProjectID, (IEnumerable<SelectListItem>)ViewBag.Projects, new { htmlAttributes = new { @class = "form-control" } })
-                @*@Html.DropDownList("AllProjects", (IEnumerable<SelectListItem>)ViewData["AllProjects"])*@
-                @*@Html.DropDownListFor(m => m.IterationProjectID, (IEnumerable<SelectListItem>)ViewData["AllProjects"])*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.IterationStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IterationStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.IterationStartDate, "{0:yyyy/MM/dd}", new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.IterationStartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,7 +58,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.IterationEndDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.IterationEndDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.IterationEndDate, "{0:yyyy/MM/dd}", new { htmlAttributes = new { @class = "form-control", @type = "date" } })
                 @Html.ValidationMessageFor(model => model.IterationEndDate, "", new { @class = "text-danger" })
             </div>
         </div>
