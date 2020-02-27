@@ -17,6 +17,8 @@ namespace ScrumWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ScrumDBEntities db = new ScrumDBEntities();
+
 
         public AccountController()
         {
@@ -79,6 +81,16 @@ namespace ScrumWeb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //Check if user exists already
+                    int existsCount = db.Users.Where(m => m.UserName == model.Email).Count();
+                    if (existsCount == 0)
+                    {
+                        Users aUser = new Users();
+                        aUser.UserName = model.Email;
+                        aUser.UserID = Guid.NewGuid().ToString();
+                        db.Users.Add(aUser);
+                        db.SaveChanges();
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

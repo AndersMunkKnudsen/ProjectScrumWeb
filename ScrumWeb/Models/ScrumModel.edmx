@@ -35,6 +35,7 @@
           <Property Name="TaskDescription" Type="varchar(max)" />
           <Property Name="TaskStatus" Type="varchar" MaxLength="250" />
           <Property Name="TaskAssignedToUser" Type="varchar" MaxLength="250" />
+          <Property Name="IterationID" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -83,6 +84,7 @@
           <Property Name="TaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TaskStatus" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="TaskAssignedToUser" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IterationID" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -129,6 +131,7 @@
           <EntitySetMapping Name="Tasks">
             <EntityTypeMapping TypeName="ScrumDBModel.Tasks">
               <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
                 <ScalarProperty Name="TaskAssignedToUser" ColumnName="TaskAssignedToUser" />
                 <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
                 <ScalarProperty Name="TaskID" ColumnName="TaskID" />

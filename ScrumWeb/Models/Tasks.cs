@@ -19,5 +19,6 @@ namespace ScrumWeb.Models
         public string TaskDescription { get; set; }
         public string TaskStatus { get; set; }
         public string TaskAssignedToUser { get; set; }
+        public string IterationID { get; set; }
     }
 }
