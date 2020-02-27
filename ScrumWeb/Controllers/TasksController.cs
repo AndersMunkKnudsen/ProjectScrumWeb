@@ -42,6 +42,17 @@ namespace ScrumWeb.Controllers
         // GET: Tasks/Create
         public ActionResult Create()
         {
+            var users = db.Users.ToList();
+            List<SelectListItem> usersList = new List<SelectListItem>();
+            foreach (Users item in users)
+            {
+                usersList.Add(new SelectListItem
+                {
+                    Text = item.UserName,
+                    Value = item.UserName
+                });
+            }
+            ViewBag.Users = usersList;
             return View();
         }
 
@@ -53,6 +64,10 @@ namespace ScrumWeb.Controllers
         public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser")] Tasks tasks)
         {
             tasks.TaskID = Guid.NewGuid().ToString();
+
+            var users = new SelectList(db.Users.ToList(), "UserName", "UserName");
+            ViewData["AllUsers"] = users;
+
             if (ModelState.IsValid)
             {
                 db.Tasks.Add(tasks);
@@ -74,6 +89,11 @@ namespace ScrumWeb.Controllers
             if (tasks == null)
             {
                 return HttpNotFound();
+            }
+            using (db)
+            {
+                var users = new SelectList(db.Users.ToList(), "UserName", "UserName");
+                ViewData["AllUsers"] = users;
             }
             return View(tasks);
         }

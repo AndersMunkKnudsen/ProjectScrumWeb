@@ -22,7 +22,7 @@ $(document).ready(function () {
 
 $("#IterationProjectID").addClass("form-control");
 $("#AllProjects").addClass("form-control");
-
+$("select").addClass("form-control");
 
 // Loop through empty boxes and add listeners
 for (const empty of empties) {
