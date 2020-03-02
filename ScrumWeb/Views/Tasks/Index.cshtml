@@ -147,4 +147,55 @@
 <br />
 <br />
 
+<br />
+<hr />
+<input type="checkbox" class="showHideTaskLogCheckbox"/>
+<h2 class="showHideTaskLog">SHOW/HIDE FINISHED TASKS</h2>
+<br />
+@*Create table showing tasks finished/marked as done and not in current iteration*@
+<table class="table" id="tasksTable">
+    <tr>
+        @if (Model.Where(m => m.TaskStatus == "BACKLOGITEM").Count() == 0)
+        {
+            <th>No tasks finished yet...</th>
+        }
+        else
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.TaskName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskStatus)
+            </th>
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var item in Model.Where(m => m.TaskStatus == "BACKLOGITEM"))
+    {
+        <tr id="@item.TaskID">
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskStatus)
+            </td>
+            <td>
+                <a title="Edit task" class="actionLinksBtn" href="@Url.Action("Edit", "Tasks", new { id = item.TaskID })">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a title="Delete task" class="actionLinksBtn" onclick="DeleteTask('@item.TaskID')">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+
 }

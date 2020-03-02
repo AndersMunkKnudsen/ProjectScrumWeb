@@ -161,3 +161,17 @@ dt, dd, th, td {
 hr {
     border-color: #dee2e6;
 }
+
+.showHideTaskLog {
+    display: inline-block !important;
+}
+
+.showHideTaskLogCheckbox {
+    float: right;
+    position: relative;
+    top: 10px;
+    transform: scale(1.5);
+}
+input.showHideTaskLogCheckbox {
+    background-color: black;
+}

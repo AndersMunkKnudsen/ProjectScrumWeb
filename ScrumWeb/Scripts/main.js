@@ -70,8 +70,6 @@ function dragDrop() {
 }
 
 function SaveTaskWithAjax(elementToAppend) {
-    $(".fa-check").hide();
-    $(".spinner-grow").show();
 
     //declare variables
     var taskID = $(elementToAppend).attr("id");
