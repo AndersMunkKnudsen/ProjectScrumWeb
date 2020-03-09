@@ -17,7 +17,7 @@ namespace ScrumWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ScrumDBEntities db = new ScrumDBEntities();
+        private readonly ScrumDBEntities db = new ScrumDBEntities();
 
 
         public AccountController()
