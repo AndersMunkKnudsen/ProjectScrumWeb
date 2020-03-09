@@ -21,6 +21,7 @@ namespace ScrumWeb.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
             }
+            //testing
             return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).ToList());
         }
 
