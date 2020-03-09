@@ -44,6 +44,12 @@ namespace ScrumWeb.Controllers
         {
             var users = db.Users.ToList();
             List<SelectListItem> usersList = new List<SelectListItem>();
+            usersList.Add(new SelectListItem
+            {
+                Text = "No User Assigned",
+                Value = "Default",
+                Selected = true
+            });
             foreach (Users item in users)
             {
                 usersList.Add(new SelectListItem
@@ -53,6 +59,25 @@ namespace ScrumWeb.Controllers
                 });
             }
             ViewBag.Users = usersList;
+            
+            var iterations = db.Iterations.ToList();
+            List<SelectListItem> iterationList = new List<SelectListItem>();
+            iterationList.Add(new SelectListItem
+            {
+                Text = "No Iteration Chosen",
+                Value = "Default",
+                Selected = true
+            });
+            foreach (Iterations item in iterations)
+            {
+                iterationList.Add(new SelectListItem
+                {
+                    Text = item.IterationName,
+                    Value = item.IterationName
+                });
+            }
+            ViewBag.Iterations = iterationList;
+
             return View();
         }
 
@@ -61,7 +86,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser")] Tasks tasks)
+        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser,IterationID")] Tasks tasks)
         {
             tasks.TaskID = Guid.NewGuid().ToString();
 
@@ -90,11 +115,12 @@ namespace ScrumWeb.Controllers
             {
                 return HttpNotFound();
             }
-            using (db)
-            {
-                var users = new SelectList(db.Users.ToList(), "UserName", "UserName");
-                ViewData["AllUsers"] = users;
-            }
+            var users = new SelectList(db.Users.ToList(), "UserName", "UserName");
+            ViewData["AllUsers"] = users;
+
+            var iterations = new SelectList(db.Iterations.ToList(), "IterationName", "IterationName");
+            ViewData["AllIterations"] = iterations;
+
             return View(tasks);
         }
 
@@ -103,7 +129,7 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser")] Tasks tasks)
+        public ActionResult Edit([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser,IterationID")] Tasks tasks)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +141,7 @@ namespace ScrumWeb.Controllers
         }
 
         [HttpPost] 
-        public JsonResult SaveWithAjax(string TaskID, string TaskName, string TaskDescription, string TaskStatus, string TaskAssignedToUser)
+        public JsonResult SaveWithAjax(string TaskID, string TaskName, string TaskDescription, string TaskStatus, string TaskAssignedToUser, string IterationID)
         {
             if (TaskID != null && TaskStatus != "")
             {
@@ -125,6 +151,7 @@ namespace ScrumWeb.Controllers
                 incomingTask.TaskDescription = TaskDescription;
                 incomingTask.TaskStatus = TaskStatus;
                 incomingTask.TaskAssignedToUser = TaskAssignedToUser;
+                incomingTask.IterationID = IterationID;
 
                 db.Entry(incomingTask).State = EntityState.Modified;
                 db.SaveChanges();

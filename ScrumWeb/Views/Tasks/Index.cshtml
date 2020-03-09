@@ -31,7 +31,7 @@
     <div class="empty col-sm-4 todoColumn" id="todoColumn">
         @foreach (var item in Model.Where(m => m.TaskStatus == "TODO"))
         {
-            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus" data-user="@item.TaskAssignedToUser">
+            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus" data-user="@item.TaskAssignedToUser" data-iteration="@item.IterationID">
                 <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
                 <div class="actionLinks">
                     <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
@@ -51,7 +51,7 @@
     <div class="empty col-sm-4 inprogressColumn" id="inprogressColumn">
         @foreach (var item in Model.Where(m => m.TaskStatus == "INPROGRESS"))
         {
-            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus" data-user="@item.TaskAssignedToUser">
+            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus" data-user="@item.TaskAssignedToUser" data-iteration="@item.IterationID">
                 <textarea name="" rows="4" cols="30" title="@item.TaskDescription" class="taskText">@item.TaskName</textarea>
                 <div class="actionLinks">
                     <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">
@@ -71,7 +71,7 @@
     <div class="empty col-sm-4 doneColumn" id="doneColumn">
         @foreach (var item in Model.Where(m => m.TaskStatus == "DONE"))
         {
-            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus" data-user="@item.TaskAssignedToUser">
+            <div class="fill" draggable="true" id="@item.TaskID" data-status="@item.TaskStatus" data-user="@item.TaskAssignedToUser" data-iteration="@item.IterationID">
                 <textarea name="" rows="4" cols="30" title="@item.TaskDescription">@item.TaskName</textarea>
                 <div class="actionLinks">
                     <a title="Save task" class="actionLinksBtn" onclick="SaveTaskWithAjax()">

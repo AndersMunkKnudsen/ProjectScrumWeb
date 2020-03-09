@@ -76,6 +76,8 @@ function SaveTaskWithAjax(elementToAppend) {
     var taskText = $(elementToAppend).children("textarea").val();
     var taskDesc = $(elementToAppend).children("textarea").attr("title");
     var taskUser = $(elementToAppend).attr("data-user");
+    var taskIteration = $(elementToAppend).attr("data-iteration");
+
     var newStatus = "";
 
     if (elementToAppend === undefined) {
@@ -84,6 +86,7 @@ function SaveTaskWithAjax(elementToAppend) {
         taskText = $(fill).children("textarea").val();
         taskDesc = $(fill).children("textarea").attr("title");
         taskUser = $(fill).attr("data-user");
+        taskIteration = $(fill).attr("data-iteration");
 
         if ($(fill).parent().attr("id") === "todoColumn") {
             newStatus = "TODO";
@@ -96,11 +99,12 @@ function SaveTaskWithAjax(elementToAppend) {
         }
     }
     else {
-    //triggered if elsewhere
+    //triggered from moving
         taskID = $(elementToAppend).attr("id");
         taskText = $(elementToAppend).children("textarea").val();
         taskDesc = $(elementToAppend).children("textarea").attr("title");
         taskUser = $(elementToAppend).attr("data-user");
+        taskIteration = $(elementToAppend).attr("data-iteration");
 
         if ($(elementToAppend).parent().attr("id") === "todoColumn") {
             newStatus = "TODO";
@@ -118,7 +122,7 @@ function SaveTaskWithAjax(elementToAppend) {
             type: "POST",
             url: "/Tasks/SaveWithAjax",
             dataType: "json",
-            data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus, TaskAssignedToUser: taskUser },
+            data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus, TaskAssignedToUser: taskUser, IterationID: taskIteration },
             success: function (result) {
             },
             error: function () {
