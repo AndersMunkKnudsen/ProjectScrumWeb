@@ -88,6 +88,7 @@ function SaveTaskWithAjax(elementToAppend) {
         taskUser = $(fill).attr("data-user");
         taskIteration = $(fill).attr("data-iteration");
 
+        //Identify column to set status
         if ($(fill).parent().attr("id") === "todoColumn") {
             newStatus = "TODO";
         }
