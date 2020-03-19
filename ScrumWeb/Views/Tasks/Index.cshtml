@@ -149,8 +149,8 @@
 
 <br />
 <hr />
-<input type="checkbox" class="showHideTaskLogCheckbox"/>
-<h2 class="showHideTaskLog">SHOW/HIDE FINISHED TASKS</h2>
+@*<input type="checkbox" class="showHideTaskLogCheckbox"/>*@
+<h2 class="showHideTaskLog">FINISHED TASKS</h2>
 <br />
 @*Create table showing tasks finished/marked as done and not in current iteration*@
 <table class="table" id="tasksTable">
@@ -174,7 +174,7 @@
         }
     </tr>
 
-    @foreach (var item in Model.Where(m => m.TaskStatus == "BACKLOGITEM"))
+    @foreach (var item in Model.Where(m => m.TaskStatus == "FINISHED"))
     {
         <tr id="@item.TaskID">
             <td>

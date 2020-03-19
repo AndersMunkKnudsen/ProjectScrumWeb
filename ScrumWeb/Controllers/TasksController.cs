@@ -21,7 +21,9 @@ namespace ScrumWeb.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
             }
-            //testing
+
+            ViewBag.CurrentIterationEndDate = db.Iterations.Where(m => m.IterationEndDate > DateTime.Today).FirstOrDefault();
+
             return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).ToList());
         }
 

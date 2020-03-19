@@ -116,9 +116,30 @@ namespace ScrumWeb.Controllers
         {
             if (ProjectID != null)
             {
-                Projects task = db.Projects.Find(ProjectID);
-                db.Projects.Remove(task);
+                //Delete project
+                Projects project = db.Projects.Find(ProjectID);
+                db.Projects.Remove(project);
                 db.SaveChanges();
+
+                //Delete iterations associated with project
+                List<Iterations> iterations = db.Iterations.Where(m => m.IterationProjectID == ProjectID).ToList();
+                foreach (Iterations iteration in iterations)
+                {
+                    db.Iterations.Remove(iteration);
+                    db.SaveChanges();
+                }
+
+                //Delete tasks associated with project
+                List<Tasks> tasks = db.Tasks.ToList();
+                foreach (Tasks task in tasks)
+                {
+                    if (iterations.Where(m => m.IterationName == task.IterationID).Count() > 0)
+                    {
+                        db.Tasks.Remove(task);
+                        db.SaveChanges();
+                    }
+
+                }
                 return Json(new { Msg = "Sucess" });
             }
             else

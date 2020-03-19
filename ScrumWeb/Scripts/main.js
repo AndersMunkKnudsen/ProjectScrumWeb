@@ -157,7 +157,7 @@ function DeleteTask(taskID) {
 }
 
 function DeleteProject(projectID) {
-    if (confirm("Delete this project?")) {
+    if (confirm("CAUTION! Deleting this project removes all associated iterations and tasks. Delete this project? ")) {
         $.ajax
             ({
                 type: "POST",
