@@ -52,7 +52,7 @@ namespace ScrumWeb.Controllers
                     Value = item.ProjectID.ToString()
                 });
             }
-            ViewBag.Projects = projectsList;
+            ViewBag.Projects = GetProjects();
             return View();
         }
 
@@ -63,15 +63,15 @@ namespace ScrumWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IterationID,IterationName,IterationDescription,IterationStartDate,IterationEndDate,IterationProjectID")] Iterations iterations)
         {
-
             iterations.IterationID = Guid.NewGuid().ToString();
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Overlap(iterations) == false)
             {
                 db.Iterations.Add(iterations);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.Projects = GetProjects();
+            ModelState.AddModelError("", "Dates overlapping one or more current iterations.");
             return View(iterations);
         }
 
@@ -102,12 +102,14 @@ namespace ScrumWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IterationID,IterationName,IterationDescription,IterationStartDate,IterationEndDate,IterationProjectID")] Iterations iterations)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && Overlap(iterations) == false)
             {
                 db.Entry(iterations).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.Projects = GetProjects();
+            ModelState.AddModelError("", "Dates overlapping one or more current iterations.");
             return View(iterations);
         }
 
@@ -160,6 +162,33 @@ namespace ScrumWeb.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private List<SelectListItem> GetProjects()
+        {
+            var projects = db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList();
+            List<SelectListItem> projectsList = new List<SelectListItem>();
+            foreach (Projects item in projects)
+            {
+                projectsList.Add(new SelectListItem
+                {
+                    Text = item.ProjectName,
+                    Value = item.ProjectID.ToString()
+                });
+            }
+            return projectsList;
+        }
+
+        private bool Overlap(Iterations iterationToCheck)
+        {
+            foreach (Iterations iteration in db.Iterations)
+            {
+                // check if new/edited iteration start date is after each existing end dates.
+                if (iterationToCheck.IterationStartDate < iteration.IterationEndDate || iterationToCheck.IterationEndDate < iterationToCheck.IterationStartDate)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
