@@ -104,8 +104,16 @@ namespace ScrumWeb.Controllers
         {
             if (ModelState.IsValid && Overlap(iterations) == false)
             {
-                db.Entry(iterations).State = EntityState.Modified;
+                var iterationToEdit = db.Iterations.Find(iterations.IterationID);
+                iterationToEdit.IterationName = iterations.IterationName;
+                iterationToEdit.IterationStartDate = iterations.IterationStartDate;
+                iterationToEdit.IterationEndDate = iterations.IterationEndDate;
+                iterationToEdit.IterationDescription = iterations.IterationDescription;
+                iterationToEdit.IterationProjectID = iterations.IterationProjectID;
                 db.SaveChanges();
+
+                //db.Entry(iterations).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.Projects = GetProjects();
@@ -185,6 +193,10 @@ namespace ScrumWeb.Controllers
                 // check if new/edited iteration start date is after each existing end dates.
                 if (iterationToCheck.IterationStartDate < iteration.IterationEndDate || iterationToCheck.IterationEndDate < iterationToCheck.IterationStartDate)
                 {
+                    if (iterationToCheck.IterationID == iteration.IterationID)
+                    {
+                        continue;
+                    }
                     return true;
                 }
             }
