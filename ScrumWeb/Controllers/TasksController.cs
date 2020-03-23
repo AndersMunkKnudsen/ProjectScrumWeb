@@ -21,9 +21,15 @@ namespace ScrumWeb.Controllers
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
             }
-
-            ViewBag.CurrentIterationEndDate = db.Iterations.Where(m => m.IterationEndDate > DateTime.Today).FirstOrDefault();
-
+            Iterations currentIteration = db.Iterations.Where(m => m.IterationEndDate > DateTime.Today).FirstOrDefault();
+            if (currentIteration == null)
+            {
+                ViewBag.CurrentIterationEndDate = DateTime.Today.AddDays(-1);
+            }
+            else
+            {
+                ViewBag.CurrentIterationEndDate = currentIteration.IterationEndDate;
+            }
             return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).ToList());
         }
 

@@ -10,14 +10,19 @@ var dragTaskID = "";
 
 //setup
 $(document).ready(function () {
-    AdjustScrumBoardHeightBasedOnTasks();
-    $('.fill').each(function () {
-        $counter += 1;
-        $newTask[($counter)] = this;
-        $(this).attr('index', $counter);
-        this.addEventListener('dragstart', dragStart);
-        this.addEventListener('dragend', dragEnd);
-    });
+    if (window.location.pathname == "/Tasks") {
+        AdjustScrumBoardHeightBasedOnTasks();
+        $('.fill').each(function () {
+            $counter += 1;
+            $newTask[($counter)] = this;
+            $(this).attr('index', $counter);
+            this.addEventListener('dragstart', dragStart);
+            this.addEventListener('dragend', dragEnd);
+        });
+        setTimeout(function () {
+            CheckForExpiredIteration();
+        }, 750);
+    }
 });
 
 $("#IterationProjectID").addClass("form-control");
@@ -210,4 +215,52 @@ function AdjustScrumBoardHeightBasedOnTasks() {
     var taskCount = $('.fill').length;
     var setHeight = 215 * taskCount;
     $('.empty').css('min-height', setHeight + 'px');
+}
+
+function CheckForExpiredIteration() {
+    // Check if current iteration has expired
+    var currentIterationEndDateAsString = $("#currentIteration").val();
+    var bits = currentIterationEndDateAsString.split(/\D/);
+    var currentIterationEndDateAsDate = new Date(bits[2], --bits[1], bits[0]);
+    var today = new Date();
+
+    if (currentIterationEndDateAsDate < today) {
+        var result = confirm('Your current iteration has ended. Create new iteration and move tasks to that iteration? (Tasks marked as done in this iteration will be moved to "Finished tasks".)');
+        if (result == true) {
+            //Create new template iteration
+            var newIterationTemplateID = CreateTemplateIteration();
+
+            //Move tasks from current iteration to new template iteration
+            MoveTasks(newIterationTemplateID);
+
+            //Redirect to new template iteration. 
+            window.location.href = '/Iterations/Edit/' + newIterationTemplateID;
+        }
+        else {
+            // Cancel clicked. Allows user to make final changes before
+            // moving on to a new iteration. 
+        }
+    }
+}
+
+// create a new template iteration with ajax
+function CreateTemplateIteration() {
+   $.ajax({
+       contentType: 'application/json; charset=utf-8',
+       dataType: 'json',
+       type: 'POST',
+       url: '/Iterations/CreateTemplateIteration',
+       data: "",
+       success: function (data) {
+           console.log(data);
+       }
+   })
+    //return new template iteration id
+   return data;
+}
+
+// move tasks in current iteration to new template 
+// iteration and finished tasks to log of finished tasks
+function MoveTasks() {
+
 }

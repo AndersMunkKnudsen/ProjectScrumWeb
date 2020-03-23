@@ -202,5 +202,51 @@ namespace ScrumWeb.Controllers
             }
             return false;
         }
+
+        [HttpPost]
+        public JsonResult CreateTemplateIteration(List<string> todo = null, List<string> inProgress = null, List<string> done = null)
+        {
+            try
+            {
+                Iterations templateIteration = new Iterations();
+                string newIterationID = Guid.NewGuid().ToString();
+                templateIteration.IterationID = newIterationID;
+                templateIteration.IterationName = newIterationID;
+                templateIteration.IterationDescription = "TEMPLATE ITERATION";
+                templateIteration.IterationEndDate = DateTime.Now;
+                templateIteration.IterationEndDate = DateTime.Today.AddDays(5);
+                db.Iterations.Add(templateIteration);
+                db.SaveChanges();
+
+                //Move tasks to new iteration and finished
+                MoveTasks(todo, inProgress, done, newIterationID);
+
+                return Json(new { Msg = newIterationID });
+            }
+            catch (Exception)
+            {
+                return Json(new { Msg = "Error" });
+            }
+        }
+
+        public bool MoveTasks(List<string> todo, List<string> inProgress, List<string> done, string newIterationID)
+        {
+            bool tasksMovedSuccesfully;
+            try
+            {
+                foreach (string todoID in todo)
+                {
+                    Tasks taskToEdit = db.Tasks.Find(todoID);
+                    taskToEdit.IterationID = newIterationID;
+                    db.SaveChanges();   
+                }
+                tasksMovedSuccesfully = true;
+            }
+            catch (Exception e)
+            {
+                tasksMovedSuccesfully = false;
+            }
+            return tasksMovedSuccesfully;
+        } 
     }
 }
