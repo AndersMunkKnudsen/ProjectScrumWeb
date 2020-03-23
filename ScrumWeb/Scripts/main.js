@@ -255,12 +255,35 @@ function CreateTemplateIteration() {
            console.log(data);
        }
    })
-    //return new template iteration id
-   return data;
+    return data;
 }
 
 // move tasks in current iteration to new template 
 // iteration and finished tasks to log of finished tasks
-function MoveTasks() {
+function MoveTasks(newIterationTemplateID) {
+    //var tasksWithTodoStatus = new Array();
+    //var tasksWithInProgressStatus = new Array();
+    //var tasksWithDoneStatus = new Array();
+    var tasksArr = new Array();
 
+    $("#todoColumn").find(".fill").each(function () {
+        tasksArr.push(this.id);
+    });
+    $("#inprogressColumn").find(".fill").each(function () {
+        tasksArr.push(this.id);
+    });
+    $("#doneColumn").find(".fill").each(function () {
+        tasksArr.push(this.id);
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "/Tasks/MoveTasks",
+        data: { tasksArr: tasksArr, newIterationTemplateID: newIterationTemplateID },
+        success: function (data) {
+            alert(data.Result);
+        },
+        dataType: "json",
+        traditional: true
+    });
 }

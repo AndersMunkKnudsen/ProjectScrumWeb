@@ -213,6 +213,26 @@ namespace ScrumWeb.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public JsonResult MoveTasks(string[] tasks, string newIterationTemplateID)
+        {
+            try
+            {
+                foreach (string taskID in tasks)
+                {
+                    Tasks taskToChange = db.Tasks.Find(taskID);
+                    taskToChange.IterationID = newIterationTemplateID;
+                    db.Entry(taskToChange).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Json(new { Msg = "Success" });
+            }
+            catch (Exception)
+            {
+                return Json(new { Msg = "Error" });
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

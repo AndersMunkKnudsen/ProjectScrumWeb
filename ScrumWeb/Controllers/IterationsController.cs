@@ -218,9 +218,6 @@ namespace ScrumWeb.Controllers
                 db.Iterations.Add(templateIteration);
                 db.SaveChanges();
 
-                //Move tasks to new iteration and finished
-                MoveTasks(todo, inProgress, done, newIterationID);
-
                 return Json(new { Msg = newIterationID });
             }
             catch (Exception)
@@ -228,25 +225,5 @@ namespace ScrumWeb.Controllers
                 return Json(new { Msg = "Error" });
             }
         }
-
-        public bool MoveTasks(List<string> todo, List<string> inProgress, List<string> done, string newIterationID)
-        {
-            bool tasksMovedSuccesfully;
-            try
-            {
-                foreach (string todoID in todo)
-                {
-                    Tasks taskToEdit = db.Tasks.Find(todoID);
-                    taskToEdit.IterationID = newIterationID;
-                    db.SaveChanges();   
-                }
-                tasksMovedSuccesfully = true;
-            }
-            catch (Exception e)
-            {
-                tasksMovedSuccesfully = false;
-            }
-            return tasksMovedSuccesfully;
-        } 
     }
 }

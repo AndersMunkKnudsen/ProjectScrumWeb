@@ -12,13 +12,13 @@ namespace ScrumWeb.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public partial class Iterations
     {
         public string IterationID { get; set; }
         public string IterationName { get; set; }
         public string IterationDescription { get; set; }
-        //public Nullable<System.DateTime> IterationStartDate { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         [DataType(DataType.Date)]
@@ -27,8 +27,6 @@ namespace ScrumWeb.Models
             get;
             set;
         }
-
-        //public Nullable<System.DateTime> IterationEndDate { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         [DataType(DataType.Date)]
@@ -39,5 +37,6 @@ namespace ScrumWeb.Models
         }
 
         public string IterationProjectID { get; set; }
+
     }
 }
