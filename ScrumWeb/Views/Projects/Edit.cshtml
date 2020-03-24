@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control createEditInput" } })
                 @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ProjectDescription, new { htmlAttributes = new { @class = "form-control createEditInput" } })
                 @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProjectMembers, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProjectMembers, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ProjectMembers, new { htmlAttributes = new { @class = "form-control createEditInput" } })
                 @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -49,15 +49,15 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<a title="Back to list" class="actionLinksBtn" href="/Projects" style="color: #6c757d;font-size:50px;margin-left:16px;">
+    <i class="fas fa-long-arrow-alt-left"></i>
+</a>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

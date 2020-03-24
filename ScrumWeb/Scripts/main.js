@@ -229,7 +229,7 @@ function CheckForExpiredIteration() {
         if (result == true) {
             //Create new template iteration
             var newIterationTemplateID = CreateTemplateIteration();
-
+            console.log(newIterationTemplateID); //DOES NOT GET ID!
             //Move tasks from current iteration to new template iteration
             MoveTasks(newIterationTemplateID);
 
@@ -245,25 +245,25 @@ function CheckForExpiredIteration() {
 
 // create a new template iteration with ajax
 function CreateTemplateIteration() {
+   var msg = "";
    $.ajax({
        contentType: 'application/json; charset=utf-8',
        dataType: 'json',
        type: 'POST',
+       async: false,  
        url: '/Iterations/CreateTemplateIteration',
        data: "",
        success: function (data) {
-           console.log(data);
+           msg = data.Msg;
+           console.log(msg); //Gets correct id
        }
    })
-    return data;
+   return msg;
 }
 
 // move tasks in current iteration to new template 
 // iteration and finished tasks to log of finished tasks
 function MoveTasks(newIterationTemplateID) {
-    //var tasksWithTodoStatus = new Array();
-    //var tasksWithInProgressStatus = new Array();
-    //var tasksWithDoneStatus = new Array();
     var tasksArr = new Array();
 
     $("#todoColumn").find(".fill").each(function () {
@@ -279,9 +279,10 @@ function MoveTasks(newIterationTemplateID) {
     $.ajax({
         type: "POST",
         url: "/Tasks/MoveTasks",
+        async: false,  
         data: { tasksArr: tasksArr, newIterationTemplateID: newIterationTemplateID },
         success: function (data) {
-            alert(data.Result);
+            console.log(data);
         },
         dataType: "json",
         traditional: true

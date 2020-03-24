@@ -214,18 +214,36 @@ namespace ScrumWeb.Controllers
         }
 
         [HttpPost]
-        public JsonResult MoveTasks(string[] tasks, string newIterationTemplateID)
+        public JsonResult MoveTasks(string[] tasksArr, string newIterationTemplateID)
         {
             try
             {
-                foreach (string taskID in tasks)
+                //Verify that template iteration is created before moving tasks to it
+                Iterations newIteration = db.Iterations.Find(newIterationTemplateID);
+                if (newIteration != null)
                 {
-                    Tasks taskToChange = db.Tasks.Find(taskID);
-                    taskToChange.IterationID = newIterationTemplateID;
-                    db.Entry(taskToChange).State = EntityState.Modified;
-                    db.SaveChanges();
+                    foreach (string taskID in tasksArr)
+                    {
+                        Tasks taskToChange = db.Tasks.Find(taskID);
+                        if (taskToChange.TaskStatus == "DONE")
+                        {
+                            // if task in ended iteration was moved to done
+                            // it shouldn't be moved to the next iteration
+                            // but to the log of finished tasks.
+                            taskToChange.TaskStatus = "FINISHED";
+                        }
+                        else
+                        {
+                            //Change tasks iteration to new iteration.
+                            taskToChange.IterationID = newIterationTemplateID;
+                        }
+                        db.Entry(taskToChange).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    //return Json(new { Msg = "Success" });
+                    return Json(new { success = newIterationTemplateID }, JsonRequestBehavior.AllowGet);
                 }
-                return Json(new { Msg = "Success" });
+                return Json(new { Msg = "Error" });
             }
             catch (Exception)
             {
