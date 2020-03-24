@@ -30,6 +30,7 @@ namespace ScrumWeb.Controllers
             {
                 ViewBag.CurrentIterationEndDate = currentIteration.IterationEndDate;
             }
+            //return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString() && m.IterationID == currentIteration.IterationName).ToList());
             return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).ToList());
         }
 
