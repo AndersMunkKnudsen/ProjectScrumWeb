@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2 createEditInput" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control createEditInput" } })
                 @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProjectDescription, htmlAttributes: new { @class = "control-label col-md-2 createEditInput" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProjectDescription, new { htmlAttributes = new { @class = "form-control createEditInput" } })
                 @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProjectMembers, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProjectMembers, htmlAttributes: new { @class = "control-label col-md-2 createEditInput" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProjectMembers, new { htmlAttributes = new { @class = "form-control createEditInput" } })
                 @Html.ValidationMessageFor(model => model.ProjectDescription, "", new { @class = "text-danger" })

@@ -17,9 +17,12 @@ namespace ScrumWeb.Models
     public partial class Iterations
     {
         public string IterationID { get; set; }
+        [Display(Name = "Iteration name: ")]
         public string IterationName { get; set; }
+        [Display(Name = "Iteration description: ")]
         public string IterationDescription { get; set; }
 
+        [Display(Name = "Iteration start date: ")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         [DataType(DataType.Date)]
         public Nullable<DateTime> IterationStartDate
@@ -27,7 +30,7 @@ namespace ScrumWeb.Models
             get;
             set;
         }
-
+        [Display(Name = "Iteration end date: ")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy/MM/dd}")]
         [DataType(DataType.Date)]
         public Nullable<DateTime> IterationEndDate
@@ -35,7 +38,7 @@ namespace ScrumWeb.Models
             get;
             set;
         }
-
+        [Display(Name = "Iteation project: ")]
         public string IterationProjectID { get; set; }
 
     }

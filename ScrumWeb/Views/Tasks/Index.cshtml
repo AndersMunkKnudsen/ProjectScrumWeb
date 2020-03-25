@@ -156,7 +156,7 @@
 @*Create table showing tasks finished/marked as done and not in current iteration*@
 <table class="table" id="tasksTable">
     <tr>
-        @if (Model.Where(m => m.TaskStatus == "BACKLOGITEM").Count() == 0)
+        @if (Model.Where(m => m.TaskStatus == "FINISHED").Count() == 0)
         {
             <th>No tasks finished yet...</th>
         }
@@ -198,5 +198,4 @@
         </tr>
     }
 </table>
-
 }

@@ -11,13 +11,18 @@ namespace ScrumWeb.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Projects
     {
         public string ProjectID { get; set; }
+        [Display(Name = "Project name: ")]
         public string ProjectName { get; set; }
+        [Display(Name = "Project description: ")]
         public string ProjectDescription { get; set; }
+        [Display(Name = "Project owner: ")]
         public string ProjectOwner { get; set; }
+        [Display(Name = "Project members (Commas seperated): ")]
         public string ProjectMembers { get; set; }
     }
 }

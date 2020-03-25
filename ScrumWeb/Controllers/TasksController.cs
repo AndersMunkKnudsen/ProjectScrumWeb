@@ -30,24 +30,9 @@ namespace ScrumWeb.Controllers
             {
                 ViewBag.CurrentIterationEndDate = currentIteration.IterationEndDate;
             }
-            //return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString() && m.IterationID == currentIteration.IterationName).ToList());
             return View(db.Tasks.Where(m => m.TaskAssignedToUser == User.Identity.Name.ToString()).ToList());
         }
 
-        // GET: Tasks/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Tasks tasks = db.Tasks.Find(id);
-            if (tasks == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tasks);
-        }
 
         // GET: Tasks/Create
         public ActionResult Create()

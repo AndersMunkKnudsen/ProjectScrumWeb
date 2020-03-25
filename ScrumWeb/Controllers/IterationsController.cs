@@ -24,21 +24,6 @@ namespace ScrumWeb.Controllers
             return View(db.Iterations.ToList());
         }
 
-        // GET: Iterations/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Iterations iterations = db.Iterations.Find(id);
-            if (iterations == null)
-            {
-                return HttpNotFound();
-            }
-            return View(iterations);
-        }
-
         // GET: Iterations/Create
         public ActionResult Create()
         {

@@ -24,21 +24,6 @@ namespace ScrumWeb.Controllers
             return View(db.Projects.Where(m => m.ProjectMembers.Contains(User.Identity.Name.ToString())).ToList());
         }
 
-        // GET: Projects/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Projects projects = db.Projects.Find(id);
-            if (projects == null)
-            {
-                return HttpNotFound();
-            }
-            return View(projects);
-        }
-
         // GET: Projects/Create
         public ActionResult Create()
         {

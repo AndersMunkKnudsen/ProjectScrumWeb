@@ -74,8 +74,17 @@ function dragDrop() {
     SaveTaskWithAjax(elementToAppend);
 }
 
-function SaveTaskWithAjax(elementToAppend) {
+function FadeScreenOnAjax(doFade) {
+    if (doFade) {
+        $("body").css("opacity", "0.4");
+    }
+    else {
+        $("body").css("opacity", "1");
+    }
+} 
 
+function SaveTaskWithAjax(elementToAppend) {
+    FadeScreenOnAjax(true);
     //declare variables
     var taskID = $(elementToAppend).attr("id");
     var taskText = $(elementToAppend).children("textarea").val();
@@ -130,15 +139,18 @@ function SaveTaskWithAjax(elementToAppend) {
             dataType: "json",
             data: { TaskID: taskID, TaskName: taskText, TaskDescription: taskDesc, TaskStatus: newStatus, TaskAssignedToUser: taskUser, IterationID: taskIteration },
             success: function (result) {
+                FadeScreenOnAjax(false);
             },
             error: function () {
                 alert("Save failed...")
+                FadeScreenOnAjax(false);
             }
         })
 }
 
 function DeleteTask(taskID) {
     if (confirm("Delete this task?")) {
+        FadeScreenOnAjax(true);
         $.ajax
             ({
                 type: "POST",
@@ -147,6 +159,7 @@ function DeleteTask(taskID) {
                 data: { TaskID: taskID },
                 success: function (result) {
                     document.getElementById(taskID).remove();
+                    FadeScreenOnAjax(false);
                     var trCount = $("#tasksTable tr").length;
                     if (trCount === 1) {
                         $("#tasksTable tr").html("<th>No backlog items have been created yet...</th>");
@@ -154,6 +167,7 @@ function DeleteTask(taskID) {
                 },
                 error: function () {
                     alert("Delete failed...")
+                    FadeScreenOnAjax(false);
                 }
             })
     } else {
@@ -163,6 +177,7 @@ function DeleteTask(taskID) {
 
 function DeleteProject(projectID) {
     if (confirm("CAUTION! Deleting this project removes all associated iterations and tasks. Delete this project? ")) {
+        FadeScreenOnAjax(true);
         $.ajax
             ({
                 type: "POST",
@@ -171,6 +186,7 @@ function DeleteProject(projectID) {
                 data: { ProjectID: projectID },
                 success: function (result) {
                     document.getElementById(projectID).remove();
+                    FadeScreenOnAjax(false);
                     var trCount = $("#projectsTable tr").length;
                     if (trCount === 1) {
                         $("#projectsTable tr").html("<th>No projects have been created yet...</th>");
@@ -179,6 +195,7 @@ function DeleteProject(projectID) {
                 },
                 error: function () {
                     alert("Delete failed...")
+                    FadeScreenOnAjax(false);
                 }
             })
     } else {
@@ -188,6 +205,7 @@ function DeleteProject(projectID) {
 
 function DeleteIteration(iterationID) {
     if (confirm("Delete this iteration?")) {
+        FadeScreenOnAjax(true);
         $.ajax
             ({
                 type: "POST",
@@ -196,6 +214,7 @@ function DeleteIteration(iterationID) {
                 data: { IterationID: iterationID },
                 success: function (result) {
                     document.getElementById(iterationID).remove();
+                    FadeScreenOnAjax(false);
                     var trCount = $("#iterationsTable tr").length;
                     if (trCount === 1) {
                         $("#iterationsTable tr").html("<th>No iterations have been created yet...</th>");
@@ -204,6 +223,7 @@ function DeleteIteration(iterationID) {
                 },
                 error: function () {
                     alert("Delete failed...")
+                    FadeScreenOnAjax(false);
                 }
             })
     } else {
@@ -225,7 +245,7 @@ function CheckForExpiredIteration() {
     var today = new Date();
 
     if (currentIterationEndDateAsDate < today) {
-        var result = confirm('Your current iteration has ended. Create new iteration and move tasks to that iteration? (Tasks marked as done in this iteration will be moved to "Finished tasks".)');
+        var result = confirm('Your current iteration has ended or no iteration has been created yet. Create a new iteration and move tasks to that iteration? (Tasks marked as done in this iteration will be moved to "Finished tasks" and unfinished tasks to the new iteration.)');
         if (result == true) {
             //Create new template iteration
             var newIterationTemplateID = CreateTemplateIteration();
@@ -245,6 +265,7 @@ function CheckForExpiredIteration() {
 
 // create a new template iteration with ajax
 function CreateTemplateIteration() {
+   FadeScreenOnAjax(false);
    var msg = "";
    $.ajax({
        contentType: 'application/json; charset=utf-8',
@@ -254,8 +275,11 @@ function CreateTemplateIteration() {
        url: '/Iterations/CreateTemplateIteration',
        data: "",
        success: function (data) {
+           FadeScreenOnAjax(false);
            msg = data.Msg;
-           console.log(msg); //Gets correct id
+       },
+       error: function () {
+           FadeScreenOnAjax(false);
        }
    })
    return msg;
@@ -264,6 +288,7 @@ function CreateTemplateIteration() {
 // move tasks in current iteration to new template 
 // iteration and finished tasks to log of finished tasks
 function MoveTasks(newIterationTemplateID) {
+    FadeScreenOnAjax(true);
     var tasksArr = new Array();
 
     $("#todoColumn").find(".fill").each(function () {
@@ -282,9 +307,12 @@ function MoveTasks(newIterationTemplateID) {
         async: false,  
         data: { tasksArr: tasksArr, newIterationTemplateID: newIterationTemplateID },
         success: function (data) {
-            console.log(data);
+            FadeScreenOnAjax(false);
         },
         dataType: "json",
-        traditional: true
+        traditional: true,
+        error: function () {
+            FadeScreenOnAjax(false);
+        }
     });
 }
