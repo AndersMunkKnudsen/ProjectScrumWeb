@@ -113,12 +113,12 @@ namespace ScrumWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Iterations iterations = db.Iterations.Find(id);
-            if (iterations == null)
+            Iterations iteration = db.Iterations.Find(id);
+            if (iteration == null)
             {
                 return HttpNotFound();
             }
-            return View(iterations);
+            return View(iteration);
         }
 
         [HttpPost]
@@ -129,6 +129,16 @@ namespace ScrumWeb.Controllers
                 Iterations iteration  = db.Iterations.Find(IterationID);
                 db.Iterations.Remove(iteration);
                 db.SaveChanges();
+
+                List<Tasks> tasksWithThisIteration = db.Tasks.Where(m => m.IterationID == iteration.IterationName).ToList();
+                foreach (Tasks task in tasksWithThisIteration)
+                {
+                    if (task.TaskStatus != "FINISHED" || task.TaskStatus != "BACKLOGITEM")
+                    {
+                        task.TaskStatus = "BACKLOGITEM";
+                        db.SaveChanges();
+                    }
+                }
                 return Json(new { Msg = "Sucess" });
             }
             else
