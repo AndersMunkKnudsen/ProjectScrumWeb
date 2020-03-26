@@ -81,21 +81,21 @@ namespace ScrumWeb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser,IterationID")] Tasks tasks)
+        public ActionResult Create([Bind(Include = "TaskID,TaskName,TaskDescription,TaskStatus,TaskAssignedToUser,IterationID")] Tasks task)
         {
-            tasks.TaskID = Guid.NewGuid().ToString();
+            task.TaskID = Guid.NewGuid().ToString();
 
             var users = new SelectList(db.Users.ToList(), "UserName", "UserName");
             ViewData["AllUsers"] = users;
 
             if (ModelState.IsValid)
             {
-                db.Tasks.Add(tasks);
+                db.Tasks.Add(task);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(tasks);
+            return View(task);
         }
 
         // GET: Tasks/Edit/5
@@ -157,6 +157,7 @@ namespace ScrumWeb.Controllers
                 return Json(new { Msg = "Error" });
             }           
         }
+
         [HttpPost]
         public JsonResult DeleteTask(string TaskID)
         {

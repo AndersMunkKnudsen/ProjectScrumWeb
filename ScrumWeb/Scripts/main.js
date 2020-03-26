@@ -76,7 +76,7 @@ function dragDrop() {
 
 function FadeScreenOnAjax(doFade) {
     if (doFade) {
-        $("body").css("opacity", "0.4");
+        $("body").css("opacity", "0.1");
     }
     else {
         $("body").css("opacity", "1");
