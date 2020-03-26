@@ -224,6 +224,8 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\main.css" />
+    <Content Include="Content\ScrumWeb-logo-small.png" />
+    <Content Include="Content\ScrumWeb.NET-logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
