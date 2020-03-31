@@ -81,16 +81,6 @@ namespace ScrumWeb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    //Check if user exists already
-                    int existsCount = db.Users.Where(m => m.UserName == model.Email).Count();
-                    if (existsCount == 0)
-                    {
-                        Users aUser = new Users();
-                        aUser.UserName = model.Email;
-                        aUser.UserID = Guid.NewGuid().ToString();
-                        db.Users.Add(aUser);
-                        db.SaveChanges();
-                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -168,12 +158,17 @@ namespace ScrumWeb.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    //Check if user exists already
+                    int existsCount = db.Users.Where(m => m.UserName == model.Email).Count();
+                    if (existsCount == 0)
+                    {
+                        Users aUser = new Users();
+                        aUser.UserName = model.Email;
+                        aUser.UserID = Guid.NewGuid().ToString();
+                        db.Users.Add(aUser);
+                        db.SaveChanges();
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }
